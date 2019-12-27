@@ -7,15 +7,85 @@
 //
 
 import SwiftUI
+import SwiftUIX
+import PureSwiftUI
 
-struct ContentView: View {
+struct Sheet<Content: View>: View {
+    @Binding var showing: Bool
+    let content: () -> Content
+    @State private var translation: CGFloat = 0
+
+    init(showing: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
+        self.content = content
+        self._showing = showing
+    }
+
     var body: some View {
-        Text("Hello, World!")
+        ZStack(alignment: .bottom) {
+            Color.black
+                .zIndex(1)
+                .opacity(showing ? 0.2 : 0)
+                .onTapGesture {
+                    if self.showing {
+                        withAnimation(.interactiveSpring()) {
+                            self.showing = false
+                        }
+                    }
+                }
+            content()
+                .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 400)
+                .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))
+                .opacity(showing ? 1 : 0)
+                .offset(0, showing ? max(0, self.translation) : 100)
+                .zIndex(2)
+                .gesture(
+                    DragGesture().onChanged { value in
+                        self.translation = value.translation.height
+                    }.onEnded { value in
+                        let snapDistance: CGFloat = 200
+                        guard abs(value.translation.height) > snapDistance else {
+                            withAnimation(.interactiveSpring()) {
+                                self.translation = 0
+                            }
+                            return
+                        }
+                        withAnimation(.interactiveSpring()) {
+                            self.showing = false
+                            self.translation = 0
+                        }
+                    }
+                )
+        }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+struct ContentView: View {
+    @State var models: [ListModel] = []
+    @State var isShowingAdd: Bool = false
+
+    var addButton: some View {
+        return Button(action: {
+            withAnimation(.interactiveSpring()) {
+                self.isShowingAdd.toggle()
+            }
+        }) {
+            Image(systemName: "plus")
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            NavigationView {
+                List(models) { model in
+                    Text(model.name)
+                }
+                .navigationBarItems(trailing: self.addButton)
+                .navigationBarTitle("Lists")
+            }.zIndex(1)
+            Sheet(showing: self.$isShowingAdd) {
+                Text("Heyo!")
+            }.zIndex(3)
+        }
     }
 }

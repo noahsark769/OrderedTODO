@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,11 @@
 		A170BCBF23B572EF00EF7806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A170BCBE23B572EF00EF7806 /* Assets.xcassets */; };
 		A170BCC223B572EF00EF7806 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A170BCC123B572EF00EF7806 /* Preview Assets.xcassets */; };
 		A170BCC523B572EF00EF7806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A170BCC323B572EF00EF7806 /* LaunchScreen.storyboard */; };
+		A170BCCE23B5745000EF7806 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = A170BCCD23B5745000EF7806 /* GRDB */; };
+		A170BCD023B5745F00EF7806 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170BCCF23B5745F00EF7806 /* DatabaseManager.swift */; };
+		A170BCD323B57D5100EF7806 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = A170BCD223B57D5100EF7806 /* SwiftUIX */; };
+		A170BCD623B5824A00EF7806 /* PureSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = A170BCD523B5824A00EF7806 /* PureSwiftUI */; };
+		A170BCD823B5839E00EF7806 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170BCD723B5839E00EF7806 /* BottomSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,8 @@
 		A170BCC123B572EF00EF7806 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A170BCC423B572EF00EF7806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A170BCC623B572EF00EF7806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A170BCCF23B5745F00EF7806 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		A170BCD723B5839E00EF7806 /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +38,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A170BCCE23B5745000EF7806 /* GRDB in Frameworks */,
+				A170BCD623B5824A00EF7806 /* PureSwiftUI in Frameworks */,
+				A170BCD323B57D5100EF7806 /* SwiftUIX in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +73,8 @@
 				A170BCC323B572EF00EF7806 /* LaunchScreen.storyboard */,
 				A170BCC623B572EF00EF7806 /* Info.plist */,
 				A170BCC023B572EF00EF7806 /* Preview Content */,
+				A170BCCF23B5745F00EF7806 /* DatabaseManager.swift */,
+				A170BCD723B5839E00EF7806 /* BottomSheetView.swift */,
 			);
 			path = OrderedTODO;
 			sourceTree = "<group>";
@@ -91,6 +103,11 @@
 			dependencies = (
 			);
 			name = OrderedTODO;
+			packageProductDependencies = (
+				A170BCCD23B5745000EF7806 /* GRDB */,
+				A170BCD223B57D5100EF7806 /* SwiftUIX */,
+				A170BCD523B5824A00EF7806 /* PureSwiftUI */,
+			);
 			productName = OrderedTODO;
 			productReference = A170BCB523B572ED00EF7806 /* OrderedTODO.app */;
 			productType = "com.apple.product-type.application";
@@ -119,6 +136,11 @@
 				Base,
 			);
 			mainGroup = A170BCAC23B572ED00EF7806;
+			packageReferences = (
+				A170BCCC23B5745000EF7806 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				A170BCD123B57D5100EF7806 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+				A170BCD423B5824A00EF7806 /* XCRemoteSwiftPackageReference "pure-swift-ui" */,
+			);
 			productRefGroup = A170BCB623B572ED00EF7806 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -146,6 +168,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A170BCD023B5745F00EF7806 /* DatabaseManager.swift in Sources */,
+				A170BCD823B5839E00EF7806 /* BottomSheetView.swift in Sources */,
 				A170BCB923B572ED00EF7806 /* AppDelegate.swift in Sources */,
 				A170BCBB23B572ED00EF7806 /* SceneDelegate.swift in Sources */,
 				A170BCBD23B572ED00EF7806 /* ContentView.swift in Sources */,
@@ -342,6 +366,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A170BCCC23B5745000EF7806 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.7.0;
+			};
+		};
+		A170BCD123B57D5100EF7806 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		A170BCD423B5824A00EF7806 /* XCRemoteSwiftPackageReference "pure-swift-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CodeSlicing/pure-swift-ui.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A170BCCD23B5745000EF7806 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A170BCCC23B5745000EF7806 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+		A170BCD223B57D5100EF7806 /* SwiftUIX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A170BCD123B57D5100EF7806 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			productName = SwiftUIX;
+		};
+		A170BCD523B5824A00EF7806 /* PureSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A170BCD423B5824A00EF7806 /* XCRemoteSwiftPackageReference "pure-swift-ui" */;
+			productName = PureSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A170BCAD23B572ED00EF7806 /* Project object */;
 }
