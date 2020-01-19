@@ -8,28 +8,40 @@
 
 import Foundation
 import GRDB
+import Combine
 
 struct ListModel: Codable {
-    let id: Int
+    var id: Int64?
     let name: String
     let isDated: Bool
 
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case isDated
+        case isDated = "is_dated"
     }
-
-    typealias Columns = CodingKeys
 }
 
 extension ListModel.CodingKeys: ColumnExpression {}
 
+extension ListModel: TableRecord {
+    enum Columns {
+        static let id = Column(CodingKeys.id)
+        static let name = Column(CodingKeys.name)
+        static let isDated = Column(CodingKeys.isDated)
+    }
+
+    static var databaseTableName: String {
+        return "list_model"
+    }
+}
+
+extension ListModel: FetchableRecord {}
+
 extension ListModel: MutablePersistableRecord {
-    func encode(to container: inout PersistenceContainer) {
-        container[Columns.id] = self.id
-        container[Columns.isDated] = self.isDated
-        container[Columns.name] = self.name
+    // Update auto-incremented id upon successful insertion
+    mutating func didInsert(with rowID: Int64, for column: String?) {
+        id = rowID
     }
 }
 
@@ -40,7 +52,7 @@ func createDatabaseMigrator() -> DatabaseMigrator {
 
     // Define any migrations here
     migrator.registerMigration("Create ListModel") { db in
-        try db.create(table: "list_model") { t in
+        try db.create(table: "c") { t in
             t.autoIncrementedPrimaryKey("id")
             t.column("name", .text).notNull()
             t.column("is_dated", .boolean).notNull().defaults(to: false)

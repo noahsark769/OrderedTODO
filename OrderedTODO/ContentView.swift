@@ -9,6 +9,9 @@
 import SwiftUI
 import SwiftUIX
 import PureSwiftUI
+import GRDB
+import GRDBCombine
+import Combine
 
 struct Sheet<Content: View>: View {
     @Binding var showing: Bool
@@ -78,14 +81,36 @@ struct ContentView: View {
         ZStack {
             NavigationView {
                 List(models) { model in
-                    Text(model.name)
+                    Text("\(model.name) (\(String(describing: model.id)))")
                 }
                 .navigationBarItems(trailing: self.addButton)
                 .navigationBarTitle("Lists")
             }.zIndex(1)
             Sheet(showing: self.$isShowingAdd) {
-                Text("Heyo!")
+                Button(action: {
+                    var model = ListModel(name: "This my list", isDated: true)
+                    try! DatabaseManager.shared.queue.write { db in
+                        try! model.insert(db)
+                    }
+                    withAnimation(.interactiveSpring()) {
+                        self.isShowingAdd = false
+                    }
+                }) {
+                    Text("Add List")
+                        .foregroundColor(Color(UIColor.systemBackground))
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 6).fill(Color.blue))
+                }
             }.zIndex(3)
+            self.addButton.zIndex(2)
+        }
+        .onReceive(
+            ValueObservation
+                .tracking(value: ListModel.all().fetchAll)
+                .publisher(in: DatabaseManager.shared.queue)
+                .catch { _ in Empty() }
+        ) { value in
+            self.models = value
         }
     }
 }
